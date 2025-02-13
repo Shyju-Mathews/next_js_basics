@@ -3,8 +3,28 @@ import {models, model, Schema } from "mongoose";
 const postSchema = new Schema({
     title: {type: String},
     description: {type: String},
-    image: {type: String}
+    image: {type: String},
+    created_at: {type: String}
+}, { toJSON : { virtuals: true }});
+
+postSchema.virtual('short_desc').get(function(){
+    return this.description.substring(0, 100)+"..."
+});
+
+postSchema.virtual('created_at_formatted').get(function(){
+    return changeDateFormat(this.created_at)
 })
+
+function changeDateFormat(date_str){
+    const date = new Date(date_str);
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+
+      return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+}
+
 
 const PostModel = models.Post ||  model("Post", postSchema);
 
