@@ -1,6 +1,7 @@
+"use client"
 // components/UserForm.tsx
 import React from "react";
-import { useUserForm } from "../hooks/useUserForm";
+import { User, useUserForm } from "../hooks/useUserForm";
 import { useUserStore } from "@/state/userStore";
 import { useUserMutation } from "@/hooks/useUserMutation";
 import { AgeOptions, UserFormData } from "@/app/types"
@@ -15,17 +16,12 @@ const ageOptions: AgeOptions[] = [
 const skillsOptions = ["JavaScript", "Python", "Java", "C++", "Ruby"];
 
 const UserForm: React.FC = () => {
-  const { register, handleSubmit, errors, onSubmit, reset } = useUserForm();
-  const { addUser } = useUserStore();
+  const { register, handleSubmit, errors, reset } = useUserForm();
   const { mutate } = useUserMutation();
 
-  const onFormSubmit = async (data: UserFormData) => {
+  const onFormSubmit = async (data: User) => {
     try {
-      const response = await mutate(data); // API call
-      if (response) {
-        addUser(data); // Store to Zustand
-        reset(); // Reset form after submission
-      }
+      mutate(data); // API call
     } catch (error) {
       console.error("Error submitting form:", error);
     }

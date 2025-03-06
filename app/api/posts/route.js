@@ -20,7 +20,7 @@ export const GET = async (req) => {
     }
     return Response.json(posts);
   } catch (error) {
-    return Response.status(500).json({ message: error.message })
+    return Response.json({ message: error.message })
   }
 };
 

@@ -1,10 +1,11 @@
 // store/useUserStore.ts
 import {create} from "zustand";
 import { UserFormData } from "@/app/types";
+import { User } from "@/hooks/useUserForm";
 
 interface UserStore {
-  users: UserFormData[];
-  addUser: (user: UserFormData) => void;
+  users: User[];
+  addUser: (user: User) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({

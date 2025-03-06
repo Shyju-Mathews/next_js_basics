@@ -1,9 +1,12 @@
-import React from 'react'
+'use client';
+
+import React, { useState } from 'react'
 
 const page = ({ params }) => {
+  
   return (
     <div>
-      <h1>welcome {params.slug}</h1>
+      <h1>welcome {params?.slug}</h1>
     </div>
   )
 }
