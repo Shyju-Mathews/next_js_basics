@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { DataProvider } from "../context/DataContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const queryClient = new QueryClient();
 
@@ -38,7 +39,7 @@ export default function RootLayout({
         >
           <QueryClientProvider client={queryClient}>
           <Header />
-          {children}
+          <NuqsAdapter>{children}</NuqsAdapter>
           <Footer />
           </QueryClientProvider>
         </body>

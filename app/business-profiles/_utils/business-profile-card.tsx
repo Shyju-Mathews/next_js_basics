@@ -40,7 +40,7 @@ export function BusinessProfileCard({ profile }: BusinessProfileCardProps) {
   }
 
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-md">
+    <Card className="overflow-hidden transition-all hover:shadow-md h-full min-w-[50%] max-w-[85%]">
       <div
         className="h-32 bg-cover bg-center"
         style={{
@@ -81,7 +81,7 @@ export function BusinessProfileCard({ profile }: BusinessProfileCardProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3 pb-3">
+      <CardContent className="space-y-6 pb-3">
         {profile.about && <p className="text-sm line-clamp-2">{profile.about}</p>}
 
         <div className="space-y-1.5">

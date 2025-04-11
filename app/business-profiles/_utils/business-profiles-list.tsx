@@ -1,16 +1,29 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Search, Filter } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, Filter } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 // import { useToast } from "@/hooks/use-toast"
-import { BusinessProfileCard } from "./business-profile-card"
-import type { BusinessProfile } from "../profile.types"
+import { BusinessProfileCard } from "./business-profile-card";
+import type { BusinessProfile } from "../profile.types";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 
 // Sample data based on the provided JSON structure
-const sampleProfiles: BusinessProfile[] = [
+export const sampleProfiles: BusinessProfile[] = [
   {
     id: "8f70912a-b1d3-4beb-870e-2d57a3682296",
     createdAt: "2025-03-13T06:26:21.786Z",
@@ -47,7 +60,8 @@ const sampleProfiles: BusinessProfile[] = [
     handle: "techsolutions",
     userId: "5ddec5ba-940b-4ebd-8029-d27183ca11dc",
     name: "Tech Solutions Inc.",
-    about: "Providing innovative tech solutions for businesses, Providing innovative tech solutions for businesses,Providing innovative tech solutions for businesses",
+    about:
+      "Providing innovative tech solutions for businesses, Providing innovative tech solutions for businesses,Providing innovative tech solutions for businesses",
     verified: "verified",
     status: "active",
     coverImage: "/placeholder.svg?height=200&width=600",
@@ -98,36 +112,36 @@ const sampleProfiles: BusinessProfile[] = [
       profilePhoto: "/placeholder.svg?height=100&width=100",
     },
   },
-]
+];
 
 export function BusinessProfilesList() {
-  const [profiles, setProfiles] = useState<BusinessProfile[]>(sampleProfiles)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
-//   const { toast } = useToast()
+  const [profiles, setProfiles] = useState<BusinessProfile[]>(sampleProfiles);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  //   const { toast } = useToast()
 
   const handleSearch = () => {
     const filtered = sampleProfiles.filter(
       (profile) =>
         (profile.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           profile.handle.toLowerCase().includes(searchTerm.toLowerCase())) &&
-        (statusFilter === "all" || profile.status === statusFilter),
-    )
-    setProfiles(filtered)
+        (statusFilter === "all" || profile.status === statusFilter)
+    );
+    setProfiles(filtered);
 
-//     toast({
-//       title: `Found ${filtered.length} profiles`,
-//       description:
-//         filtered.length > 0 ? "Displaying matching business profiles" : "No profiles match your search criteria",
-//       duration: 3000,
-//     })
-  }
+    //     toast({
+    //       title: `Found ${filtered.length} profiles`,
+    //       description:
+    //         filtered.length > 0 ? "Displaying matching business profiles" : "No profiles match your search criteria",
+    //       duration: 3000,
+    //     })
+  };
 
   const clearFilters = () => {
-    setSearchTerm("")
-    setStatusFilter("all")
-    setProfiles(sampleProfiles)
-  }
+    setSearchTerm("");
+    setStatusFilter("all");
+    setProfiles(sampleProfiles);
+  };
 
   return (
     <div className="space-y-6">
@@ -166,7 +180,7 @@ export function BusinessProfilesList() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-red-500 items-center place-items-center">
         {profiles.map((profile) => (
           <BusinessProfileCard key={profile.id} profile={profile} />
         ))}
@@ -177,6 +191,91 @@ export function BusinessProfilesList() {
           <p className="text-muted-foreground">No business profiles found</p>
         </div>
       )}
+
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-center items-center place-items-center bg-green-400">
+        <Card className="border border-black w-full max-w-sm h-full flex flex-col">
+          <CardHeader className="flex-1 bg-purple-500">
+            <CardDescription>Title 1</CardDescription>
+          </CardHeader>
+          <CardContent className="flex-1">
+            <CardDescription>Description 1, Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum velit autem minima soluta cum nesciunt aliquam explicabo modi exercitationem ullam alias officiis et mollitia sed enim, temporibus molestias esse tenetur.</CardDescription>
+          </CardContent>
+          <CardFooter className="flex-1">
+            <CardDescription>Footer 1</CardDescription>
+          </CardFooter>
+        </Card>
+
+        <Card className="border border-black w-full max-w-sm h-full flex flex-col">
+          <CardHeader className="flex-1 bg-purple-500">
+            <CardDescription>Title 2</CardDescription>
+          </CardHeader>
+          <CardContent className="flex-1 flex justify-start items-start bg-red-500">
+            <CardDescription>Description 2</CardDescription>
+          </CardContent>
+          <CardFooter className="flex-1">
+            <CardDescription>Footer 2</CardDescription>
+          </CardFooter>
+        </Card>
+
+        <Card className="border border-black w-full max-w-sm h-full flex flex-col">
+          <CardHeader className="flex-1 bg-purple-500">
+            <CardDescription>Title 3</CardDescription>
+          </CardHeader>
+          <CardContent className="flex-1">
+            <CardDescription>Description 1, Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum velit autem minima soluta cum nesciunt aliquam explicabo modi exercitationem ullam alias officiis et mollitia sed enim, temporibus molestias esse tenetur.</CardDescription>
+          </CardContent>
+          <CardFooter className="flex-1">
+            <CardDescription>Footer 3</CardDescription>
+          </CardFooter>
+        </Card>
+      </div> */}
+      <div className="grid grid-cols-2 md:grid-cols-3 place-items-center bg-green-400 p-4">
+        <Card className="border border-black w-full max-w-52 h-[300px] flex flex-col">
+          <CardHeader className=" bg-purple-500 flex items-center justify-center p-4 rounded-md h-1/5">
+            <CardDescription>Title 1</CardDescription>
+          </CardHeader>
+          <CardContent className=" p-4 overflow-hidden h-3/5">
+            <CardDescription className="line-clamp-5">
+              Description 1, Lorem ipsum dolor sit amet consectetur, adipisicing
+              elit. Earum velit autem minima soluta cum nesciunt aliquam
+              explicabo modi exercitationem ullam alias officiis et mollitia sed
+              enim, temporibus molestias esse tenetur.
+            </CardDescription>
+          </CardContent>
+          <CardFooter className=" flex items-center justify-center p-4 bg-yellow-700 text-white h-1/5">
+            <CardDescription>Footer 1</CardDescription>
+          </CardFooter>
+        </Card>
+
+        <Card className="border border-black w-full max-w-52 h-[300px] flex flex-col">
+          <CardHeader className=" bg-purple-500 flex items-center justify-center p-4">
+            <CardDescription>Title 2</CardDescription>
+          </CardHeader>
+          <CardContent className=" p-4 overflow-hidden bg-red-500 h-10">
+            <CardDescription>Description 2</CardDescription>
+          </CardContent>
+          <CardFooter className=" flex items-center justify-center p-4">
+            <CardDescription>Footer 2</CardDescription>
+          </CardFooter>
+        </Card>
+
+        <Card className="border border-black w-full max-w-52 h-[300px] flex flex-col">
+          <CardHeader className=" bg-purple-500 flex items-center justify-center p-4">
+            <CardDescription>Title 3</CardDescription>
+          </CardHeader>
+          <CardContent className=" p-4 overflow-hidden h-10">
+            <CardDescription>
+              Description 3, Lorem ipsum dolor sit amet consectetur, adipisicing
+              elit. Earum velit autem minima soluta cum nesciunt aliquam
+              explicabo modi exercitationem ullam alias officiis et mollitia sed
+              enim, temporibus molestias esse tenetur.
+            </CardDescription>
+          </CardContent>
+          <CardFooter className=" flex items-center justify-center p-4">
+            <CardDescription>Footer 3</CardDescription>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
-  )
-};
+  );
+}

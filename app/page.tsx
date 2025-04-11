@@ -3,15 +3,23 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PostsObject } from "./types";
+import { useQueryState, parseAsString } from 'nuqs'
 
 export default function Home() {
   const [posts, setPosts] = useState<PostsObject | any>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState<any>({});
+  const [query, setQuery] = useQueryState(
+    'query',
+    parseAsString.withDefault('')
+  )
   const [search, setSearch] = useState(false);
   const inputRef = useRef<string | any>("");
   const [compressedFile, setCompressedFile] = useState(null);
   const [error, setError] = useState(null);
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
+
+
+  console.log(Object.keys(searchQuery), Object.values(searchQuery), 'searchQuery');
 
   const getPosts = async (signal: any) => {
     try {
@@ -39,7 +47,7 @@ export default function Home() {
     try {
       setSearch(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/posts?q=${inputRef.current.value}`
+        `${process.env.NEXT_PUBLIC_API_URL}/posts?q=${query}`
       );
       const data = await res.json();
       setPosts(data);
@@ -158,6 +166,11 @@ export default function Home() {
           type="text"
           className="px-4 py-2 border border-gray-300 rounded-md"
           placeholder="Search..."
+          onChange={() => {
+            setQuery(inputRef.current.value);
+            setSearchQuery({
+              title: inputRef.current.value,})
+          }}
           /* value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} */ ref={
             inputRef
           }
