@@ -22,6 +22,7 @@ export default function ImageUploader() {
     if (file) {
       const reader = new FileReader()
       reader.onload = () => {
+        console.log(reader.result, "reader result")
         setImage(reader.result as string)
         setIsCropping(true)
         setCroppedImage(null)
