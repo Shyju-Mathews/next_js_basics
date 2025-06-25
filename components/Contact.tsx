@@ -13,8 +13,8 @@ export default function Contact() {
         setInputs((state) => {return  { ...state, [e.target.name]:e.target.value} })
     }
 
-    const handleSubmit = () => {
-        // e.preventDefault();
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
         // fetch(process.env.NEXT_PUBLIC_API_URL+'/enquiry', {
         //     method:'POST',
         //     body: JSON.stringify(inputs)
